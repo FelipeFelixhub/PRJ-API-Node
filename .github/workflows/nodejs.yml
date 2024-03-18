@@ -22,9 +22,7 @@ jobs:
     steps:
       - name: Configure MySQL permissions
         run: >-
-          mysql -h 127.0.0.1 --port 3306 -u root -pteste -e "ALTER USER
-          'root'@'%' IDENTIFIED BY 'teste'; GRANT ALL PRIVILEGES ON *.* TO
-          'root'@'%'; FLUSH PRIVILEGES;"
+          mysql -h 127.0.0.1 --port 3306 -u root -pteste -e "ALTER USER root'@'%' IDENTIFIED BY 'teste'; GRANT ALL PRIVILEGES ON *.* TO root'@'%'; FLUSH PRIVILEGES;"
       - uses: actions/checkout@v2
       - name: Use Node.js
         uses: actions/setup-node@v1
@@ -35,6 +33,6 @@ jobs:
       - name: Install cliente mysql
         run: sudo apt install mysql-client
       - name: Criar Tabelas
-        run: mysql -h 127.0.0.1 --port 3306 -u root -pteste usersdb < estrutura.sql
+        run: mysql -h 127.0.0.1 --port 3306 -u root -pteste testdb < estrutura.sql
       - name: Run tests
         run: npm test
