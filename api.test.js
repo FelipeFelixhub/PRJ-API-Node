@@ -8,3 +8,8 @@ describe('Teste GET /users', () => {
   });
 });
 
+afterAll(() =>{
+  server.close();
+  connection.end();
+});
+
