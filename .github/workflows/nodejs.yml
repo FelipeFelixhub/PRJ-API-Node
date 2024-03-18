@@ -1,27 +1,30 @@
-on:
+'on':
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
-
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
-
     services:
       mysql:
-        image: mysql:8.1
+        image: 'mysql:8.1'
         env:
           MYSQL_ROOT_PASSWORD: teste
-          MYSQL_USER: root
           MYSQL_DATABASE: testdb
         ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
+          - '3306:3306'
+        options: >-
+          --health-cmd="mysqladmin ping" --health-interval=10s
+          --health-timeout=5s --health-retries=3
     steps:
       - name: Configure MySQL permissions
-        run: mysql -h 127.0.0.1 --port 3306 -u root -pteste -e "ALTER USER 'root'@'%' IDENTIFIED BY 'teste'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'; FLUSH PRIVILEGES;"
+        run: >-
+          mysql -h 127.0.0.1 --port 3306 -u root -pteste -e "ALTER USER
+          'root'@'%' IDENTIFIED BY 'teste'; GRANT ALL PRIVILEGES ON *.* TO
+          'root'@'%'; FLUSH PRIVILEGES;"
       - uses: actions/checkout@v2
       - name: Use Node.js
         uses: actions/setup-node@v1
