@@ -1,0 +1,2 @@
+docker start meu-sql
+docker exec -it meu-sql mysql -u root -p
