@@ -9,8 +9,8 @@ const port = 3000;
 const connection = mysql.createConnection({
   host: 'localhost',
   user: process.env.MYSQL_USER || "root", // Usa variáveis de ambiente
-  password: process.env.MYSQL_PASSWORD || "mysql@123",
-  database: process.env.MYSQL_DATABASE || "usersdb"
+  password: process.env.MYSQL_PASSWORD || "teste",
+  database: process.env.MYSQL_DATABASE || "testdb"
 });
 
 
