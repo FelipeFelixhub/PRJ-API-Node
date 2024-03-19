@@ -5,14 +5,25 @@ describe('Teste GET /users', () => {
   it('deve responder com status 200', async () => {
     const response = await supertest(app).get('/users');
     expect(response.statusCode).toBe(200);
+    
+    expect(response.body).toBeInstanceOf(Array);
+    response.body.forEach(element => {
+      expect(element).toHaveProperty("name");
+    });
   });
 });
 
 describe('Teste POST /users', () => {
   it('deve responder com status 201', async () => {
-    const response = await supertest(app).post('/users').send({name:"Lineuzinho", email:"lineuzinho@gmail.com"});
+    const response = await supertest(app).post('/users').send({name:"Agostinho", email:"carrarataxi@gmail.com"});
     expect(response.statusCode).toBe(201);
+    console.log(`O id criado foi ${response.body}`);
+    expect(response.body).toHaveProperty("id");
+    expect(response.body.id).toBeGreaterThan(0);
+    console.log(`O id criado foi ${response.body.id}`);
+
   });
+
 });
 
 afterAll(() =>{
