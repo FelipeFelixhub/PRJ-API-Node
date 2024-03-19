@@ -1,6 +1,8 @@
 const supertest = require('supertest');
 const {app, server, connection} = require('./index.js'); // Importe seu aplicativo Express
 
+var idCriado;
+
 describe('Teste GET /users', () => {
   it('deve responder com status 200', async () => {
     const response = await supertest(app).get('/users');
@@ -18,6 +20,7 @@ describe('Teste POST /users', () => {
     const response = await supertest(app).post('/users').send({name:"Agostinho", email:"carrarataxi@gmail.com"});
     expect(response.statusCode).toBe(201);
     console.log(`O id criado foi ${response.body}`);
+    idCriado = response.body.id
     expect(response.body).toHaveProperty("id");
     expect(response.body.id).toBeGreaterThan(0);
     console.log(`O id criado foi ${response.body.id}`);
@@ -25,6 +28,23 @@ describe('Teste POST /users', () => {
   });
 
 });
+
+describe('Atualiza usuario PUT /users', () => {
+  it('deve responder com status 204', async () => {
+    const response = await supertest(app).post('/users/' +idCriado).send({name:"Agostinho", email:"carrarataxi@gmail.com"});
+    
+    expect(response.statusCode).toBe(204);
+  });
+});
+
+
+describe('Deleta usuario DELETE /users', () => {
+  it('deve responder com status 204', async () => {
+    await supertest(app).post('/users').send('/users')});
+    expect(response.statusCode).toBe(204);
+  });
+
+  
 
 afterAll(() =>{
   server.close();
