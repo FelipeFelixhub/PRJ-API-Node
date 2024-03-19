@@ -59,7 +59,7 @@ app.get('/users/:id', (req, res) => {
 app.put('/users/:id', (req, res) => {
   const userId = req.params.id;
   const { name, email } = req.body;
-  const UPDATE_USER_QUERY = `UPDATE users set name = ?, set email = ? WHERE id = ?`;
+  const UPDATE_USER_QUERY = `UPDATE users SET name = ? email = ? WHERE id = ?`;
   connection.query(UPDATE_USER_QUERY, [name, email, userId], (err, results) => {
     if (err) throw err;
     res.statusCode(204)
