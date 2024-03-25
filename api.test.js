@@ -29,24 +29,22 @@ describe('Teste POST /users', () => {
 
 });
 
-describe('Atualiza usuario PUT /users', () => {
+describe('Teste PUT /users', () => {
   it('deve responder com status 204', async () => {
-    const response = await supertest(app).post('/users/' +idCriado).send({name:"Agostinho", email:"carrarataxi@gmail.com"});
-    
+    const response = await supertest(app).put('/users/1').send({name:"Agostinho", email:"carrarataxi@gmail.com"});
     expect(response.statusCode).toBe(204);
   });
 });
 
 
-describe('Deleta usuario DELETE /users', () => {
+describe('Deleta usuário /users', () => {
   it('deve responder com status 204', async () => {
-    await supertest(app).post('/users').send('/users')});
+    const response = await supertest(app).delete('/users/' + idCriado);
     expect(response.statusCode).toBe(204);
   });
+});
 
-  
-
-afterAll(() =>{
+afterAll(() => {
   server.close();
   connection.end();
 });
